@@ -70,6 +70,10 @@ export default function Footer() {
             Jiu-Jitsu / Luta Livre / Judo
           </p>
         </div>
+
+        <p className="mt-8 text-center text-xs text-gray-600 font-light tracking-wide">
+          Página creada por Cruz Tech
+        </p>
       </div>
     </footer>
   )
