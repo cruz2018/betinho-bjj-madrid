@@ -1,7 +1,6 @@
 import { useState, type FormEvent } from 'react'
 
-const WHATSAPP_URL =
-  'https://wa.me/34600000000?text=Hola%20Betinho%2C%20me%20gustar%C3%ADa%20reservar%20una%20clase%20de%20prueba%20de%20jiu-jitsu%20en%20Madrid.'
+import { WHATSAPP_URL } from '../config/site'
 
 const interestOptions = [
   'Jiu-Jitsu Brasileño',

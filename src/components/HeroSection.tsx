@@ -1,8 +1,7 @@
 import gilbertoLogo from '../assets/images/betinho_logo_01.jpeg'
 import heroGroupPhoto from '../assets/images/betinho_equipo_01.jpeg'
 
-const WHATSAPP_URL =
-  'https://wa.me/34652386903?text=Hola%20Betinho%2C%20me%20gustar%C3%ADa%20reservar%20una%20clase%20de%20prueba%20de%20jiu-jitsu%20en%20Madrid.'
+import { WHATSAPP_URL } from '../config/site'
 
 export default function HeroSection() {
   return (
@@ -27,7 +26,7 @@ export default function HeroSection() {
 
         <p className="text-base md:text-lg text-gray-500 leading-relaxed max-w-2xl mb-10 font-light">
           Entrena con el profesor Gilberto García &ldquo;Betinho&rdquo;,
-          cinturón negro de jiu-jitsu, 3º Dan en luta livre y 3º Dan en judo.
+          cinturón negro 4º grado de jiu-jitsu, 3º Dan en luta livre y 3º Dan en judo.
         </p>
 
         <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
