@@ -1,3 +1,5 @@
+import { WHATSAPP_DISPLAY_NUMBER, WHATSAPP_URL } from '../config/site'
+
 const currentYear = new Date().getFullYear()
 
 export default function Footer() {
@@ -49,12 +51,12 @@ export default function Footer() {
               Contacto
             </p>
             <a
-              href="https://wa.me/34600000000?text=Hola%20Betinho%2C%20me%20gustar%C3%ADa%20reservar%20una%20clase%20de%20prueba%20de%20jiu-jitsu%20en%20Madrid."
+              href={WHATSAPP_URL}
               target="_blank"
               rel="noopener noreferrer"
               className="text-xs text-gray-500 hover:text-white transition-colors duration-150 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
             >
-              +34 600 000 000
+              {WHATSAPP_DISPLAY_NUMBER}
             </a>
             <p className="text-xs text-gray-500 font-light mt-2">
               Madrid, España
