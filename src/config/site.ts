@@ -1,5 +1,10 @@
 // Official contact details — single source of truth for the whole site.
 
+// Canonical production origin (no trailing slash). The apex domain 308-redirects here.
+// index.html, public/robots.txt and public/sitemap.xml are static and repeat this URL:
+// update them too if it ever changes.
+export const SITE_URL = 'https://www.betinhobjjmadrid.com'
+
 const WHATSAPP_NUMBER = '34652386903'
 
 const WHATSAPP_MESSAGE =
