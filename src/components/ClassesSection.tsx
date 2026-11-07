@@ -1,3 +1,5 @@
+import { VENUES, getDirectionsUrl } from '../config/site'
+
 const classes = [
   {
     title: 'Jiu-Jitsu Brasileño',
@@ -23,37 +25,6 @@ const classes = [
     title: 'Nivel avanzado',
     description:
       'Para atletas con base sólida que buscan afinar técnica, desarrollar juego propio y competir.',
-  },
-]
-
-const locations = [
-  {
-    name: 'Gym Clásico',
-    address: 'Calle Arquitectura 11, Arganzuela, Madrid',
-    schedule: [
-      {
-        days: 'Lunes, miércoles y viernes',
-        time: '21:00 - 22:30',
-      },
-    ],
-  },
-  {
-    name: 'Gimnasio CrossTraining 645 Retiro',
-    address: 'Calle de Fernán González 41, Retiro, Madrid',
-    schedule: [
-      {
-        days: 'Martes y jueves',
-        time: '20:45 - 22:15',
-      },
-      {
-        days: 'Viernes',
-        time: '15:45 - 17:00',
-      },
-      {
-        days: '2 sábados al mes · Open Mat',
-        time: '17:30 - 19:30',
-      },
-    ],
   },
 ]
 
@@ -96,7 +67,7 @@ export default function ClassesSection() {
         </div>
 
         <div className="mt-16 lg:mt-24">
-          <div className="mb-10 max-w-3xl">
+          <div id="horarios" className="mb-10 max-w-3xl scroll-mt-28">
             <p className="text-xs uppercase tracking-[0.25em] text-gray-400 mb-4">
               Horarios y sedes
             </p>
@@ -106,7 +77,7 @@ export default function ClassesSection() {
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-px bg-gray-200">
-            {locations.map((location) => (
+            {VENUES.map((location) => (
               <section key={location.name} className="bg-white p-8 lg:p-10">
                 <div className="flex flex-col gap-2 border-b border-gray-100 pb-7">
                   <h4 className="text-xl md:text-2xl font-light tracking-tight text-black">
@@ -115,6 +86,16 @@ export default function ClassesSection() {
                   <p className="text-sm text-gray-500 leading-relaxed">
                     {location.address}
                   </p>
+                  <a
+                    href={getDirectionsUrl(location)}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={`Cómo llegar a ${location.name} en Google Maps (se abre en una nueva pestaña)`}
+                    className="mt-2 self-start inline-flex items-center gap-2 text-xs uppercase tracking-widest text-black border-b border-black pb-0.5 hover:text-gray-600 hover:border-gray-600 transition-colors duration-150 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-black"
+                  >
+                    Cómo llegar
+                    <span aria-hidden="true">↗</span>
+                  </a>
                 </div>
 
                 <div className="divide-y divide-gray-100">
