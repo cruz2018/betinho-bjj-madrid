@@ -1,4 +1,4 @@
-import gilbertoLogo from '../assets/images/betinho_logo_01.jpeg'
+import gilbertoLogo from '../assets/images/betinho-logo.svg'
 import heroGroupPhoto from '../assets/images/betinho_equipo_01.jpeg'
 
 import { WHATSAPP_URL } from '../config/site'
@@ -11,7 +11,9 @@ export default function HeroSection() {
         <img
           src={gilbertoLogo}
           alt="Gilberto García Brazilian Martial Arts"
-          className="h-20 md:h-28 lg:h-36 w-auto object-contain mb-10 lg:mb-14"
+          width={559}
+          height={534}
+          className="h-36 md:h-44 lg:h-52 w-auto mb-8 md:mb-10"
         />
 
         <p className="text-xs uppercase tracking-[0.25em] text-gray-400 mb-6">

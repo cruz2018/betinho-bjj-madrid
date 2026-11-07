@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import gilbertoLogo from '../assets/images/betinho_logo_01.jpeg'
+import gilbertoLogo from '../assets/images/betinho-logo.svg'
 
 const navLinks = [
   { label: 'Inicio', href: '#inicio' },
@@ -23,8 +23,10 @@ export default function Header() {
         <a href="#inicio" className="flex items-center gap-3 shrink-0" aria-label="Gilberto García Brazilian Martial Arts — Inicio">
           <img
             src={gilbertoLogo}
-            alt="Gilberto García Brazilian Martial Arts"
-            className="h-9 lg:h-11 w-auto object-contain"
+            alt=""
+            width={559}
+            height={534}
+            className="h-11 lg:h-14 w-auto"
           />
         </a>
 
