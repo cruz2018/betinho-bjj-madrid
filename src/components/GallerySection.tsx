@@ -1,28 +1,18 @@
-import teamPhoto from '../assets/images/betinho_equipo_01.jpeg'
-import academyLogo from '../assets/images/betinho_logo_01.jpeg'
-
-const galleryItems = [
-  {
-    src: teamPhoto,
-    alt: 'Grupo de alumnos de Betinho BJJ Madrid después de una clase de jiu-jitsu brasileño',
-    caption: 'Equipo Betinho BJJ Madrid',
-    className: 'md:col-span-2 lg:col-span-2 lg:row-span-2',
-  },
-  {
-    src: academyLogo,
-    alt: 'Logo de Betinho BJJ Madrid para la academia de jiu-jitsu brasileño y luta livre en Madrid',
-    caption: 'Academia de jiu-jitsu brasileño y luta livre',
-    className: '',
-  },
-  {
-    src: teamPhoto,
-    alt: 'Alumnos entrenando jiu-jitsu brasileño y lucha en Madrid con el equipo de Betinho',
-    caption: 'Entrenamiento para todos los niveles',
-    className: '',
-  },
-]
+import { useCallback, useState } from 'react'
+import { GALLERY_PAGE_SIZE } from '../config/gallery'
+import { galleryPhotos } from '../lib/galleryPhotos'
+import GalleryLightbox from './GalleryLightbox'
 
 export default function GallerySection() {
+  const [visibleCount, setVisibleCount] = useState(GALLERY_PAGE_SIZE)
+  const [openIndex, setOpenIndex] = useState<number | null>(null)
+  const closeLightbox = useCallback(() => setOpenIndex(null), [])
+
+  const visiblePhotos = galleryPhotos.slice(0, visibleCount)
+  const hasMore = visibleCount < galleryPhotos.length
+
+  if (galleryPhotos.length === 0) return null
+
   return (
     <section
       id="galeria"
@@ -42,25 +32,57 @@ export default function GallerySection() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 auto-rows-[260px] md:auto-rows-[320px] gap-3 lg:gap-4">
-          {galleryItems.map((item) => (
-            <figure
-              key={`${item.caption}-${item.alt}`}
-              className={`group relative overflow-hidden bg-gray-100 ${item.className}`}
-            >
-              <img
-                src={item.src}
-                alt={item.alt}
-                className="w-full h-full object-cover object-center transition-transform duration-500 ease-out group-hover:scale-[1.02]"
-                loading="lazy"
-              />
-              <figcaption className="absolute inset-x-0 bottom-0 bg-black/70 px-5 py-4 text-sm text-white leading-snug opacity-100 md:opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-                {item.caption}
-              </figcaption>
-            </figure>
+        <ul className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 md:gap-3 lg:gap-4">
+          {visiblePhotos.map((photo, index) => (
+            <li key={photo.id}>
+              <figure className="group relative aspect-square overflow-hidden bg-gray-100">
+                <button
+                  type="button"
+                  className="block h-full w-full cursor-zoom-in focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
+                  aria-label={`Ampliar foto: ${photo.alt}`}
+                  onClick={() => setOpenIndex(index)}
+                >
+                  <img
+                    src={photo.thumbSrc}
+                    alt={photo.alt}
+                    width={photo.thumbWidth}
+                    height={photo.thumbHeight}
+                    loading="lazy"
+                    decoding="async"
+                    className="h-full w-full object-cover object-center transition-transform duration-500 ease-out group-hover:scale-[1.02]"
+                  />
+                </button>
+                {photo.caption && (
+                  <figcaption className="pointer-events-none absolute inset-x-0 bottom-0 bg-black/70 px-4 py-3 text-sm text-white leading-snug opacity-100 md:opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                    {photo.caption}
+                  </figcaption>
+                )}
+              </figure>
+            </li>
           ))}
-        </div>
+        </ul>
+
+        {hasMore && (
+          <div className="mt-12 flex justify-center">
+            <button
+              type="button"
+              className="border border-black px-8 py-3 text-sm uppercase tracking-[0.2em] text-black transition-colors hover:bg-black hover:text-white"
+              onClick={() => setVisibleCount((count) => count + GALLERY_PAGE_SIZE)}
+            >
+              Ver más fotos
+            </button>
+          </div>
+        )}
       </div>
+
+      {openIndex !== null && (
+        <GalleryLightbox
+          photos={galleryPhotos}
+          index={openIndex}
+          onClose={closeLightbox}
+          onNavigate={setOpenIndex}
+        />
+      )}
     </section>
   )
 }
