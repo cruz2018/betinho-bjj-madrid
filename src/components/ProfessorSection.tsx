@@ -1,7 +1,7 @@
 const highlights = [
   { value: '+30', label: 'Años practicando' },
   { value: '+20', label: 'Años enseñando' },
-  { value: 'BJJ', label: 'Cinturón negro 3er grado' },
+  { value: 'BJJ', label: 'Cinturón negro 4º grado' },
   { value: '3º Dan', label: 'Luta Livre' },
   { value: '3º Dan', label: 'Judo' },
 ]
@@ -35,7 +35,7 @@ export default function ProfessorSection() {
               hace más de 20 años.
             </p>
             <p className="text-gray-500 leading-relaxed text-base font-light mt-4">
-              Actualmente soy cinturón negro de jiu-jitsu brasileño 3er grado,
+              Actualmente soy cinturón negro de jiu-jitsu brasileño 4º grado,
               3º Dan en luta livre brasileña y 3º Dan en judo. Mi enfoque es
               simplificar posiciones complejas, enseñar fundamentos claros y
               transformar practicantes intermedios en atletas de alto nivel.
