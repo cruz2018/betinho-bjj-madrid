@@ -22,3 +22,6 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Original, unoptimized gallery photos (processed by `npm run photos`)
+photos-originals/
