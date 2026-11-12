@@ -98,9 +98,12 @@ export default function ContactSection() {
             <p className="text-sm text-gray-600 font-light leading-relaxed">
               Madrid, España
             </p>
-            <p className="text-xs text-gray-400 mt-1 font-light">
-              Dirección disponible al reservar clase
-            </p>
+            <a
+              href="#horarios"
+              className="inline-block text-xs uppercase tracking-widest text-black border-b border-black pb-0.5 mt-3 hover:text-gray-600 hover:border-gray-600 transition-colors duration-150 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-black"
+            >
+              Ver sedes y horarios
+            </a>
           </div>
         </div>
 

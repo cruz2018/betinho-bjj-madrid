@@ -1,3 +1,5 @@
+import { VENUES, getDirectionsUrl } from '../config/site'
+
 const classes = [
   {
     title: 'Jiu-Jitsu Brasileño',
@@ -34,13 +36,17 @@ export default function ClassesSection() {
       className="bg-gray-50 py-24 lg:py-32"
     >
       <div className="max-w-7xl mx-auto px-6 lg:px-12">
-        <div className="mb-14 lg:mb-20">
+        <div className="mb-14 lg:mb-20 max-w-3xl">
           <p className="text-xs uppercase tracking-[0.25em] text-gray-400 mb-4">
             Disciplinas
           </p>
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-light tracking-tight text-black leading-tight max-w-2xl">
             Clases
           </h2>
+          <p className="mt-5 text-base md:text-lg text-gray-500 leading-relaxed font-light">
+            Entrenamientos de jiu-jitsu brasileño, luta livre y grappling en
+            Madrid, con grupos para principiantes y alumnos avanzados.
+          </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-gray-200">
@@ -58,6 +64,58 @@ export default function ClassesSection() {
               </p>
             </div>
           ))}
+        </div>
+
+        <div className="mt-16 lg:mt-24">
+          <div id="horarios" className="mb-10 max-w-3xl scroll-mt-28">
+            <p className="text-xs uppercase tracking-[0.25em] text-gray-400 mb-4">
+              Horarios y sedes
+            </p>
+            <h3 className="text-3xl md:text-4xl font-light tracking-tight text-black leading-tight">
+              Entrena en Arganzuela y Retiro
+            </h3>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-px bg-gray-200">
+            {VENUES.map((location) => (
+              <section key={location.name} className="bg-white p-8 lg:p-10">
+                <div className="flex flex-col gap-2 border-b border-gray-100 pb-7">
+                  <h4 className="text-xl md:text-2xl font-light tracking-tight text-black">
+                    {location.name}
+                  </h4>
+                  <p className="text-sm text-gray-500 leading-relaxed">
+                    {location.address}
+                  </p>
+                  <a
+                    href={getDirectionsUrl(location)}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={`Cómo llegar a ${location.name} en Google Maps (se abre en una nueva pestaña)`}
+                    className="mt-2 self-start inline-flex items-center gap-2 text-xs uppercase tracking-widest text-black border-b border-black pb-0.5 hover:text-gray-600 hover:border-gray-600 transition-colors duration-150 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-black"
+                  >
+                    Cómo llegar
+                    <span aria-hidden="true">↗</span>
+                  </a>
+                </div>
+
+                <div className="divide-y divide-gray-100">
+                  {location.schedule.map((item) => (
+                    <div
+                      key={`${location.name}-${item.days}`}
+                      className="grid grid-cols-1 sm:grid-cols-[1fr_auto] gap-2 sm:gap-6 py-5"
+                    >
+                      <p className="text-sm font-medium text-black">
+                        {item.days}
+                      </p>
+                      <p className="text-sm text-gray-500 sm:text-right">
+                        {item.time}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </section>
+            ))}
+          </div>
         </div>
 
         <div className="mt-10 lg:mt-14">
