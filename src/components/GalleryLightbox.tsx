@@ -5,13 +5,35 @@ import type { GalleryPhoto } from '../lib/galleryPhotos'
 interface GalleryLightboxProps {
   photos: GalleryPhoto[]
   index: number
+  /** Accessible name of the dialog, e.g. the collection title. */
+  label?: string
   onClose: () => void
   onNavigate: (index: number) => void
 }
 
 const SWIPE_THRESHOLD_PX = 50
 
-export default function GalleryLightbox({ photos, index, onClose, onNavigate }: GalleryLightboxProps) {
+/** Keeps Tab / Shift+Tab cycling through the visible buttons of the dialog. */
+function trapFocus(event: KeyboardEvent, container: HTMLElement | null) {
+  if (!container) return
+  const focusable = [...container.querySelectorAll<HTMLElement>('button:not([disabled])')].filter(
+    (element) => element.offsetParent !== null,
+  )
+  if (focusable.length === 0) return
+  const first = focusable[0]
+  const last = focusable[focusable.length - 1]
+  const active = document.activeElement
+  if (event.shiftKey && (active === first || !container.contains(active))) {
+    event.preventDefault()
+    last.focus()
+  } else if (!event.shiftKey && (active === last || !container.contains(active))) {
+    event.preventDefault()
+    first.focus()
+  }
+}
+
+export default function GalleryLightbox({ photos, index, label, onClose, onNavigate }: GalleryLightboxProps) {
+  const dialogRef = useRef<HTMLDivElement>(null)
   const closeButtonRef = useRef<HTMLButtonElement>(null)
   const touchStart = useRef<{ x: number; y: number } | null>(null)
 
@@ -20,12 +42,13 @@ export default function GalleryLightbox({ photos, index, onClose, onNavigate }: 
   const showPrevious = () => onNavigate((index - 1 + total) % total)
   const showNext = () => onNavigate((index + 1) % total)
 
-  // Keyboard: Esc closes, arrows navigate.
+  // Keyboard: Esc closes, arrows navigate, Tab stays inside the dialog.
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === 'Escape') onClose()
       else if (event.key === 'ArrowLeft') onNavigate((index - 1 + total) % total)
       else if (event.key === 'ArrowRight') onNavigate((index + 1) % total)
+      else if (event.key === 'Tab') trapFocus(event, dialogRef.current)
     }
     window.addEventListener('keydown', handleKeyDown)
     return () => window.removeEventListener('keydown', handleKeyDown)
@@ -69,13 +92,14 @@ export default function GalleryLightbox({ photos, index, onClose, onNavigate }: 
   }
 
   const buttonClass =
-    'flex h-11 w-11 items-center justify-center text-white/70 transition-colors hover:text-white focus-visible:outline focus-visible:outline-1 focus-visible:outline-white'
+    'flex h-11 w-11 items-center justify-center text-white/70 transition-colors hover:text-white focus-visible:outline focus-visible:outline-1 focus-visible:outline-white motion-reduce:transition-none'
 
   return (
     <div
+      ref={dialogRef}
       role="dialog"
       aria-modal="true"
-      aria-label="Galería de fotos"
+      aria-label={label ? `Galería de fotos: ${label}` : 'Galería de fotos'}
       data-testid="gallery-lightbox"
       className="fixed inset-0 z-50 flex flex-col bg-black/95"
       onClick={onClose}

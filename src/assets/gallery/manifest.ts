@@ -8,6 +8,42 @@ export interface GalleryPhotoSize {
 }
 
 export const galleryManifest: Record<string, GalleryPhotoSize> = {
+  "graduacion-bjj-01": {
+    "width": 1600,
+    "height": 1330,
+    "thumbWidth": 600,
+    "thumbHeight": 499
+  },
+  "graduacion-bjj-02": {
+    "width": 1600,
+    "height": 1200,
+    "thumbWidth": 600,
+    "thumbHeight": 450
+  },
+  "graduacion-bjj-03": {
+    "width": 1600,
+    "height": 1200,
+    "thumbWidth": 600,
+    "thumbHeight": 450
+  },
+  "graduacion-bjj-04": {
+    "width": 1600,
+    "height": 1200,
+    "thumbWidth": 600,
+    "thumbHeight": 450
+  },
+  "graduacion-bjj-grupo": {
+    "width": 1600,
+    "height": 1104,
+    "thumbWidth": 600,
+    "thumbHeight": 414
+  },
+  "graduacion-luta-livre-grupo": {
+    "width": 1600,
+    "height": 1031,
+    "thumbWidth": 600,
+    "thumbHeight": 387
+  },
   "whatsapp-image-2026-11-08-at-09-57-33-1": {
     "width": 1600,
     "height": 1200,
