@@ -14,6 +14,8 @@ interface PhotoGridProps {
    * would cover the photo; captions are always shown in the lightbox.
    */
   showCaptions?: boolean
+  /** Tailwind aspect-ratio class for each tile. */
+  aspectClassName?: string
 }
 
 export default function PhotoGrid({
@@ -22,6 +24,7 @@ export default function PhotoGrid({
   pageSize,
   columnsClassName = 'grid-cols-2 md:grid-cols-3 lg:grid-cols-4',
   showCaptions = true,
+  aspectClassName = 'aspect-square',
 }: PhotoGridProps) {
   const [visibleCount, setVisibleCount] = useState(pageSize ?? photos.length)
   const visiblePhotos = pageSize ? photos.slice(0, visibleCount) : photos
@@ -32,7 +35,7 @@ export default function PhotoGrid({
       <ul className={`grid gap-2 md:gap-3 lg:gap-4 ${columnsClassName}`}>
         {visiblePhotos.map((photo, index) => (
           <li key={photo.id}>
-            <figure className="group relative aspect-square overflow-hidden bg-gray-100">
+            <figure className={`group relative overflow-hidden bg-gray-100 ${aspectClassName}`}>
               <button
                 type="button"
                 className="block h-full w-full cursor-zoom-in focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
