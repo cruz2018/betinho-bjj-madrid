@@ -17,6 +17,33 @@ export interface GalleryPhotoText {
 }
 
 export const galleryOverrides: Record<string, GalleryPhotoText> = {
+  // Graduación de Jiu-Jitsu Brasileño, noviembre de 2026. Describe only what is
+  // visible: no names or belt grades unless the academy confirms them.
+  'graduacion-bjj-grupo': {
+    alt: 'Foto de grupo de la graduación de Jiu-Jitsu Brasileño en Betinho BJJ Madrid: alumnos de distintas edades con kimonos blancos, azules y negros, sentados y de pie sobre el tatami verde',
+    caption: 'Foto de grupo de la graduación de Jiu-Jitsu Brasileño',
+  },
+  'graduacion-bjj-01': {
+    alt: 'Siete practicantes con kimonos blancos y negros posan juntos sobre el tatami verde en la graduación de Jiu-Jitsu Brasileño de Betinho BJJ Madrid',
+    caption: 'Grupo de practicantes en la graduación de Jiu-Jitsu Brasileño',
+  },
+  'graduacion-bjj-02': {
+    alt: 'Grupo de alumnos con kimonos blancos y negros abrazados en fila sobre el tatami durante la graduación de Jiu-Jitsu Brasileño',
+    caption: 'Alumnos de Jiu-Jitsu Brasileño en la graduación',
+  },
+  'graduacion-bjj-03': {
+    alt: 'Alumnos con kimonos azules, blancos y negros posan en fila sobre el tatami verde tras la graduación de Jiu-Jitsu Brasileño',
+    caption: 'Alumnos celebrando la graduación de Jiu-Jitsu Brasileño',
+  },
+  'graduacion-bjj-04': {
+    alt: 'Alumnos adultos y dos niños con kimono posan en fila sobre el tatami verde en la graduación de Jiu-Jitsu Brasileño',
+    caption: 'Adultos y niños en la graduación de Jiu-Jitsu Brasileño',
+  },
+  // Graduación de Luta Livre Esportiva, noviembre de 2026.
+  'graduacion-luta-livre-grupo': {
+    alt: 'Foto de grupo de la graduación de Luta Livre Esportiva en Betinho BJJ Madrid: alumnos con camisetas de entrenamiento y cinturones de colores, sentados y de pie sobre el tatami rojo',
+    caption: 'Foto de grupo de la graduación de Luta Livre Esportiva',
+  },
   // 'whatsapp-image-2026-11-08-at-09-57-41-3': {
   //   alt: 'Alumnos practicando una guardia cerrada en el tatami',
   //   caption: 'Clase de técnica',

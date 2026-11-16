@@ -1,17 +1,10 @@
 import { galleryManifest } from '../assets/gallery/manifest'
 import { GALLERY_FALLBACK_ALT, galleryOverrides } from '../config/gallery'
+import { galleryEvents as galleryEventConfigs } from '../config/galleryEvents'
+import { eventPhotoContext, eventPhotoIds, resolveEvents } from './galleryModel'
+import type { GalleryPhoto } from './galleryModel'
 
-export interface GalleryPhoto {
-  id: string
-  src: string
-  width: number
-  height: number
-  thumbSrc: string
-  thumbWidth: number
-  thumbHeight: number
-  alt: string
-  caption?: string
-}
+export type { GalleryPhoto } from './galleryModel'
 
 const files = import.meta.glob<string>('../assets/gallery/**/*.webp', {
   eager: true,
@@ -30,6 +23,7 @@ function humanize(slug: string): string {
 }
 
 function buildPhotos(): GalleryPhoto[] {
+  const eventContext = eventPhotoContext(galleryEventConfigs)
   const fullByName = new Map<string, string>()
   const thumbByName = new Map<string, string>()
 
@@ -45,8 +39,14 @@ function buildPhotos(): GalleryPhoto[] {
     const src = fullByName.get(name)!
     const size = galleryManifest[name]
     const override = galleryOverrides[name] ?? {}
-    const nameCaption = NON_DESCRIPTIVE_NAME.test(name) ? undefined : humanize(name)
+    const event = eventContext.get(name)
+    // Event photos only get the captions written in galleryOverrides: a file name
+    // is not a reliable description of a ceremony (and may contain dates).
+    const nameCaption = event || NON_DESCRIPTIVE_NAME.test(name) ? undefined : humanize(name)
     const caption = override.caption ?? nameCaption
+    const fallbackAlt = event
+      ? `${event.collectionTitle} en Betinho BJJ Madrid (foto ${event.position} de ${event.total})`
+      : `${GALLERY_FALLBACK_ALT} (foto ${index + 1} de ${names.length})`
 
     return {
       id: name,
@@ -56,10 +56,20 @@ function buildPhotos(): GalleryPhoto[] {
       thumbSrc: thumbByName.get(name) ?? src,
       thumbWidth: size?.thumbWidth ?? 600,
       thumbHeight: size?.thumbHeight ?? 450,
-      alt: override.alt ?? caption ?? `${GALLERY_FALLBACK_ALT} (foto ${index + 1} de ${names.length})`,
+      alt: override.alt ?? caption ?? fallbackAlt,
       caption,
     }
   })
 }
 
+/** Every optimized photo, in file-name order. */
 export const galleryPhotos = buildPhotos()
+
+const photosById = new Map(galleryPhotos.map((photo) => [photo.id, photo]))
+const assignedToEvents = eventPhotoIds(galleryEventConfigs)
+
+/** Events that have at least one photo available. */
+export const galleryEvents = resolveEvents(galleryEventConfigs, photosById)
+
+/** Photos not assigned to any event: shown under "Entrenamientos". */
+export const trainingPhotos = galleryPhotos.filter((photo) => !assignedToEvents.has(photo.id))
